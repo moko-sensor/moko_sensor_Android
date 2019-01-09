@@ -39,6 +39,7 @@ public class AppConstants {
     public static final int REQUEST_CODE_PERMISSION = 120;
     public static final int REQUEST_CODE_PERMISSION_2 = 121;
     public static final int REQUEST_CODE_LOCATION_SETTINGS = 122;
+    public static final int REQUEST_CODE_SELECT_WORK_MODE = 123;
 
     public static final int PERMISSION_REQUEST_CODE = 1;
     // result_code

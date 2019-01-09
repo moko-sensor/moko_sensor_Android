@@ -37,78 +37,41 @@ public class DeviceAdapter extends BaseAdapter<MokoDevice> {
     }
 
     private void setView(DeviceViewHolder holder, final MokoDevice device) {
-        if ("iot_wall_switch".equals(device.function)) {
-            holder.ivDevice.setImageResource(R.drawable.device_wall_switch);
-            holder.ivSwitch.setVisibility(View.GONE);
-            holder.ivSwitch.setOnClickListener(null);
-        } else if ("iot_plug".equals(device.function)) {
-            holder.ivDevice.setImageResource(R.drawable.device_moko_plug);
-            holder.ivSwitch.setVisibility(View.VISIBLE);
-            holder.ivSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.deviceSwitchClick(device);
-                }
-            });
-        }
         if (!device.isOnline) {
-            holder.ivSwitch.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.checkbox_close));
-            holder.tvDeviceSwitch.setText(mContext.getString(R.string.device_state_offline));
-            holder.tvDeviceSwitch.setTextColor(ContextCompat.getColor(mContext, R.color.grey_cccccc));
+            holder.ivDevice.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.sensor_offline));
+            holder.ivArrow.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.arrow_right));
+            holder.tvDeviceName.setTextColor(ContextCompat.getColor(mContext, R.color.grey_bfbfbf));
+            holder.tvDeviceState.setText(mContext.getString(R.string.device_state_offline));
+            holder.tvDeviceState.setTextColor(ContextCompat.getColor(mContext, R.color.grey_bfbfbf));
         } else {
-            holder.ivSwitch.setImageDrawable(ContextCompat.getDrawable(mContext, device.on_off ? R.drawable.checkbox_open : R.drawable.checkbox_close));
-            if ("iot_wall_switch".equals(device.function)) {
-                holder.tvDeviceSwitch.setText(mContext.getString(R.string.device_state_online));
-                holder.tvDeviceSwitch.setTextColor(ContextCompat.getColor(mContext, R.color.blue_0188cc));
-            } else if ("iot_plug".equals(device.function)) {
-                holder.tvDeviceSwitch.setText(device.on_off ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off));
-                holder.tvDeviceSwitch.setTextColor(ContextCompat.getColor(mContext, device.on_off ? R.color.blue_0188cc : R.color.grey_cccccc));
-            }
+            holder.ivDevice.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.sensor_online));
+            holder.ivArrow.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.arrow_right_blue));
+            holder.tvDeviceName.setTextColor(ContextCompat.getColor(mContext, R.color.blue_0188cc));
+            holder.tvDeviceState.setText(mContext.getString(R.string.device_state_online));
+            holder.tvDeviceState.setTextColor(ContextCompat.getColor(mContext, R.color.blue_0188cc));
         }
         holder.tvDeviceName.setText(device.nickName);
-
-        holder.rlDeviceDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.deviceDetailClick(device);
-            }
-        });
     }
 
     @Override
     protected ViewHolder createViewHolder(int position, LayoutInflater inflater, ViewGroup parent) {
-        final View convertView = inflater.inflate(R.layout.device_item, parent, false);
+        final View convertView = inflater.inflate(R.layout.sensor_device_item, parent, false);
         return new DeviceViewHolder(convertView);
-    }
-
-    public void setListener(AdapterClickListener listener) {
-        this.listener = listener;
     }
 
     static class DeviceViewHolder extends ViewHolder {
         @Bind(R.id.iv_device)
         ImageView ivDevice;
-        @Bind(R.id.rl_device_detail)
-        RelativeLayout rlDeviceDetail;
         @Bind(R.id.tv_device_name)
         TextView tvDeviceName;
-        @Bind(R.id.tv_device_switch)
-        TextView tvDeviceSwitch;
-        @Bind(R.id.iv_switch)
-        ImageView ivSwitch;
+        @Bind(R.id.iv_arrow)
+        ImageView ivArrow;
+        @Bind(R.id.tv_device_state)
+        TextView tvDeviceState;
 
         public DeviceViewHolder(View convertView) {
             super(convertView);
             ButterKnife.bind(this, convertView);
         }
-    }
-
-    private AdapterClickListener listener;
-
-    public interface AdapterClickListener {
-        void deviceDetailClick(MokoDevice device);
-
-        void deviceSwitchClick(MokoDevice device);
-
     }
 }

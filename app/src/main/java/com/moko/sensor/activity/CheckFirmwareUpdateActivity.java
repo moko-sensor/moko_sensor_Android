@@ -85,7 +85,7 @@ public class CheckFirmwareUpdateActivity extends BaseActivity {
             }
             if (MokoConstants.ACTION_MQTT_RECEIVE.equals(action)) {
                 String topic = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_TOPIC);
-                if (topic.equals(mokoDevice.getDeviceTopicSwitchState())) {
+                if (topic.equals(mokoDevice.getDeviceTopicDeviceHeartBeat())) {
                     mokoDevice.isOnline = true;
                 }
                 if (topic.equals(mokoDevice.getDeviceTopicUpgradeState())) {
@@ -138,7 +138,7 @@ public class CheckFirmwareUpdateActivity extends BaseActivity {
             }
             if (AppConstants.ACTION_DEVICE_STATE.equals(action)) {
                 String topic = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_TOPIC);
-                if (topic.equals(mokoDevice.getDeviceTopicSwitchState())) {
+                if (topic.equals(mokoDevice.getDeviceTopicDeviceHeartBeat())) {
                     mokoDevice.isOnline = false;
                 }
             }

@@ -13,15 +13,6 @@
         android:layout_marginTop="100dp"
         android:src="@drawable/logo" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="@string/guide_center"
-        android:textColor="@color/white_ffffff"
-        android:textSize="23sp" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

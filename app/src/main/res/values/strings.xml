@@ -6,6 +6,7 @@
     <string name="connect">Connect</string>
     <string name="clear">Clear</string>
     <string name="save">Save</string>
+    <string name="done">Done</string>
     <string name="wait">Waiting...</string>
     <string name="mqtt_connecting">Connecting...</string>
     <string name="mqtt_connected">Connected</string>
@@ -19,9 +20,11 @@
     <string name="select_device_type">Select Device Type</string>
     <string name="select_device_moko_plug">Moko plug</string>
     <string name="select_device_wall_switch">Wall Switch</string>
+    <string name="select_device_moko_sensor">Moko Sensor</string>
     <string name="add_device_title">Add Device</string>
     <string name="add_plug_tips">Plug in the device and confirm \nthat indicator is blinking amber</string>
     <string name="add_wall_switch_tips">Plug in the device and confirm \nthat indicator is blinking red</string>
+    <string name="add_sensor_tips">Keep the device energized and confirm \nthat indicator is blinking amber</string>
     <string name="not_blinking_amber_tips">My light is not blinking amber</string>
     <string name="not_blinking_red_tips">My light is not blinking red</string>
     <string name="plug_blinking">Indicator blink amber light</string>
@@ -30,6 +33,7 @@
     <string name="settings">Settings</string>
     <string name="settings_mqtt_device">MQTT settings for device</string>
     <string name="settings_mqtt_app">MQTT settings for APP</string>
+    <string name="settings_gprs_device">GPRS settings for device</string>
     <string name="operation_steps_title">Operation Steps</string>
     <string name="operation_steps_1">Step 1</string>
     <string name="operation_steps_1_content">Plug the device in power</string>
@@ -38,6 +42,7 @@
     <string name="operation_steps_2_content">Hold the button for 10s until the LED blink amber</string>
     <string name="wall_switch_operation_steps_2_content">Hold the button for 10s until the LED blink red</string>
     <string name="wall_switch_operation_steps_3_content">Confirm the indicator light is blinking</string>
+    <string name="select_device_work_mode">Select Work Mode</string>
 
 
     <string name="mqtt_server">MQTT Server</string>
@@ -124,7 +129,7 @@
     <string name="device_info_title">Device Information</string>
     <string name="device_info_company">Company Name</string>
     <string name="device_info_date">Date of Manufacture</string>
-    <string name="device_info_name">Product Model</string>
+    <string name="device_info_name">Device Name</string>
     <string name="device_info_version">Firmware Version</string>
     <string name="device_info_mac">Device Mac</string>
     <string name="device_info_no_statistics">The device does not have this function</string>

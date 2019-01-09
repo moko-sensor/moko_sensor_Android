@@ -86,9 +86,9 @@ public class MoreActivity extends BaseActivity {
             }
             if (MokoConstants.ACTION_MQTT_RECEIVE.equals(action)) {
                 String topic = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_TOPIC);
-                if (topic.equals(mokoDevice.getDeviceTopicFirmwareInfo())) {
+                if (topic.equals(mokoDevice.getDeviceTopicDeviceInfo())) {
                     try {
-                        MokoSupport.getInstance().unSubscribe(mokoDevice.getDeviceTopicFirmwareInfo());
+                        MokoSupport.getInstance().unSubscribe(mokoDevice.getDeviceTopicDeviceInfo());
                     } catch (MqttException e) {
                         e.printStackTrace();
                     }
@@ -98,20 +98,25 @@ public class MoreActivity extends BaseActivity {
                     String production_date = object.get("production_date").getAsString();
                     String product_model = object.get("product_model").getAsString();
                     String firmware_version = object.get("firmware_version").getAsString();
-                    String firmwar_mac = "";
+                    String device_mac = "";
+                    String device_sim = "";
                     if (object.get("device_mac") != null) {
-                        firmwar_mac = object.get("device_mac").getAsString();
+                        device_mac = object.get("device_mac").getAsString();
+                    }
+                    if (object.get("device_SIM") != null) {
+                        device_sim = object.get("device_SIM").getAsString();
                     }
                     mokoDevice.company_name = company_name;
                     mokoDevice.production_date = production_date;
                     mokoDevice.product_model = product_model;
                     mokoDevice.firmware_version = firmware_version;
-                    mokoDevice.mac = firmwar_mac;
+                    mokoDevice.mac = device_mac;
+                    mokoDevice.sim = device_sim;
                     Intent i = new Intent(MoreActivity.this, DeviceInfoActivity.class);
                     i.putExtra(AppConstants.EXTRA_KEY_DEVICE, mokoDevice);
                     startActivity(i);
                 }
-                if (topic.equals(mokoDevice.getDeviceTopicSwitchState())) {
+                if (topic.equals(mokoDevice.getDeviceTopicDeviceHeartBeat())) {
                     mokoDevice.isOnline = true;
                 }
             }
@@ -153,7 +158,7 @@ public class MoreActivity extends BaseActivity {
                     if (TextUtils.isEmpty(topic)) {
                         return;
                     }
-                    if (topic.equals(mokoDevice.getDeviceTopicFirmwareInfo())) {
+                    if (topic.equals(mokoDevice.getDeviceTopicDeviceInfo())) {
                         MqttMessage message = new MqttMessage();
                         message.setPayload("".getBytes());
                         message.setQos(appMqttConfig.qos);
@@ -172,7 +177,7 @@ public class MoreActivity extends BaseActivity {
             }
             if (AppConstants.ACTION_DEVICE_STATE.equals(action)) {
                 String topic = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_TOPIC);
-                if (topic.equals(mokoDevice.getDeviceTopicSwitchState())) {
+                if (topic.equals(mokoDevice.getDeviceTopicDeviceHeartBeat())) {
                     mokoDevice.isOnline = false;
                 }
             }
@@ -245,7 +250,7 @@ public class MoreActivity extends BaseActivity {
         showLoadingProgressDialog(getString(R.string.wait));
         LogModule.i("读取设备信息");
         try {
-            MokoSupport.getInstance().subscribe(mokoDevice.getDeviceTopicFirmwareInfo(), appMqttConfig.qos);
+            MokoSupport.getInstance().subscribe(mokoDevice.getDeviceTopicDeviceInfo(), appMqttConfig.qos);
         } catch (MqttException e) {
             e.printStackTrace();
         }

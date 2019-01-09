@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_f2f2f2"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/blue_0188cc">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="back"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Sensor Data"
+            android:textColor="@color/white_ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:onClick="more"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/more" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey_999999" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_temperature"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="Temperature"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_humidity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_humidity"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="Humidity"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_nh3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_nh3"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="NH3"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_nh3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_co2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_co2"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="CO₂"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_co2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_illumination"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_illumination"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="illumination"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_illumination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pm2_5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_pm2_5"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="PM2.5"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_pm2_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_voc"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_voc"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="VOC"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_voc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_laser_ranging"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_laser_ranging"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="Laser Ranging"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_laser_ranging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -9,5 +9,6 @@ public class DeviceResult implements Serializable {
     public String device_name;
     public String device_specifications;
     public String device_mac;
-    public String device_type;
+    public int device_GPRS;
+    public DeviceType device_type;
 }
