@@ -19,6 +19,8 @@ import com.moko.sensor.entity.SensorData;
 import com.moko.support.MokoConstants;
 import com.moko.support.entity.DeviceType;
 
+import java.text.DecimalFormat;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -76,11 +78,11 @@ public class MokoSensorDetailActivity extends BaseActivity {
             DeviceType deviceType = new Gson().fromJson(mokoDevice.type, DeviceType.class);
             if (deviceType.env_temp == 1) {
                 rlTemperature.setVisibility(View.VISIBLE);
-                tvTemperature.setText(mokoDevice.temperature + "");
+                tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.temperature) + "℃");
             }
             if (deviceType.humidity == 1) {
                 rlHumidity.setVisibility(View.VISIBLE);
-                tvHumidity.setText(mokoDevice.humidity + "");
+                tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.humidity) + "%");
             }
             if (deviceType.PM2_5 == 1) {
                 rlPm25.setVisibility(View.VISIBLE);
@@ -106,6 +108,9 @@ public class MokoSensorDetailActivity extends BaseActivity {
                 rlVoc.setVisibility(View.VISIBLE);
                 tvVoc.setText(mokoDevice.voc + "");
             }
+            if (mokoDevice.isSensorDataEmpty()) {
+                showLoadingProgressDialog(getString(R.string.wait));
+            }
         }
         // 注册广播接收器
         IntentFilter filter = new IntentFilter();
@@ -125,16 +130,17 @@ public class MokoSensorDetailActivity extends BaseActivity {
                 int state = intent.getIntExtra(MokoConstants.EXTRA_MQTT_CONNECTION_STATE, 0);
             }
             if (MokoConstants.ACTION_MQTT_RECEIVE.equals(action)) {
+                dismissLoadingProgressDialog();
                 String topic = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_TOPIC);
                 if (topic.equals(mokoDevice.getDeviceTopicDeviceSensorData())) {
                     mokoDevice.isOnline = true;
                     String message = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_MESSAGE);
                     SensorData sensorData = new Gson().fromJson(message, SensorData.class);
                     if (rlTemperature.getVisibility() == View.VISIBLE) {
-                        tvTemperature.setText(sensorData.env_temp + "");
+                        tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * sensorData.env_temp) + "℃");
                     }
                     if (rlHumidity.getVisibility() == View.VISIBLE) {
-                        tvHumidity.setText(sensorData.humidity + "");
+                        tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * sensorData.humidity) + "%");
                     }
                     if (rlPm25.getVisibility() == View.VISIBLE) {
                         tvPm25.setText(sensorData.PM2_5 + "");

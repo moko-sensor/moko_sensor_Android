@@ -6,16 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.moko.sensor.AppConstants;
 import com.moko.sensor.R;
 import com.moko.sensor.adapter.DeviceAdapter;
@@ -26,7 +24,6 @@ import com.moko.sensor.entity.MokoDevice;
 import com.moko.sensor.entity.SensorData;
 import com.moko.sensor.service.MokoService;
 import com.moko.sensor.utils.SPUtiles;
-import com.moko.sensor.utils.ToastUtils;
 import com.moko.support.MokoConstants;
 import com.moko.support.MokoSupport;
 import com.moko.support.entity.DeviceType;
@@ -34,7 +31,6 @@ import com.moko.support.handler.BaseMessageHandler;
 import com.moko.support.log.LogModule;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.ArrayList;
 
@@ -49,8 +45,8 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    @Bind(R.id.rl_empty)
-    RelativeLayout rlEmpty;
+    @Bind(R.id.cl_empty)
+    ConstraintLayout clEmpty;
     @Bind(R.id.lv_device_list)
     ListView lvDeviceList;
     @Bind(R.id.tv_title)
@@ -69,11 +65,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         lvDeviceList.setAdapter(adapter);
         lvDeviceList.setOnItemClickListener(this);
         if (devices.isEmpty()) {
-            rlEmpty.setVisibility(View.VISIBLE);
+            clEmpty.setVisibility(View.VISIBLE);
             lvDeviceList.setVisibility(View.GONE);
         } else {
             lvDeviceList.setVisibility(View.VISIBLE);
-            rlEmpty.setVisibility(View.GONE);
+            clEmpty.setVisibility(View.GONE);
         }
         mHandler = new OfflineHandler(this);
         // 注册广播接收器
@@ -153,6 +149,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                             });
                             message.what = device.id;
                             mHandler.sendMessageDelayed(message, 62 * 1000);
+                            adapter.notifyDataSetChanged();
                             break;
                         }
                     }
@@ -215,10 +212,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 adapter.notifyDataSetChanged();
                 if (!devices.isEmpty()) {
                     lvDeviceList.setVisibility(View.VISIBLE);
-                    rlEmpty.setVisibility(View.GONE);
+                    clEmpty.setVisibility(View.GONE);
                 } else {
                     lvDeviceList.setVisibility(View.GONE);
-                    rlEmpty.setVisibility(View.VISIBLE);
+                    clEmpty.setVisibility(View.VISIBLE);
                 }
             }
         }

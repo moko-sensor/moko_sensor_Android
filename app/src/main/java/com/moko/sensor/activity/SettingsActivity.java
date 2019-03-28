@@ -37,8 +37,4 @@ public class SettingsActivity extends BaseActivity {
     public void settingForAPP(View view) {
         startActivity(new Intent(this, SetAppMqttActivity.class));
     }
-
-    public void settingGprsForDevice(View view) {
-        // TODO: 2019/1/9 GPRS
-    }
 }

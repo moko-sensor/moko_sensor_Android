@@ -75,7 +75,7 @@ public class MQTTConfig implements Serializable {
 
     public void reset() {
         host = "";
-        port = "1883";
+        port = "";
         cleanSession = true;
         connectMode = 0;
         qos = 2;

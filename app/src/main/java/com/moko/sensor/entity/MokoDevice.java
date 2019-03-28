@@ -11,7 +11,7 @@ public class MokoDevice implements Serializable {
     public static final String DEVICE_TOPIC_DELETE_DEVICE = "device/delete_device";
 
     public static final String DEVICE_TOPIC_DEVICE_INFO = "device/device_info";
-    public static final String DEVICE_TOPIC_DEVICE_HEART_BEAT = "device/heart_beat";
+    public static final String DEVICE_TOPIC_DEVICE_HEART_BEAT = "device/heartbeat";
     public static final String DEVICE_TOPIC_DEVICE_SENSOR_DATA = "device/sensor_data";
 
     public static final String APP_TOPIC_RESET = "app/reset";
@@ -42,6 +42,15 @@ public class MokoDevice implements Serializable {
     public int pm2_5;
     public int voc;
     public int laser_ranging;
+
+    public boolean isSensorDataEmpty() {
+        if (temperature == 0 && humidity == 0 && nh3 == 0
+                && co2 == 0 && illumination == 0 && pm2_5 == 0
+                && voc == 0 && laser_ranging == 0) {
+            return true;
+        }
+        return false;
+    }
 
     public ArrayList<String> subscribeTopics;
 

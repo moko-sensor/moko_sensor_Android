@@ -155,6 +155,18 @@ public class AddMokoSensorActivity extends BaseActivity {
                             }).start();
                             break;
                         case MokoConstants.HEADER_SET_MQTT_INFO:
+                            // 设置上报通道
+                            final JsonObject channel = new JsonObject();
+                            channel.addProperty("header", MokoConstants.HEADER_SET_CHANNEL);
+                            channel.addProperty("mqtt_channel", mIsGPRS ? 2 : 1);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mService.sendMessage(channel.toString());
+                                }
+                            }).start();
+                            break;
+                        case MokoConstants.HEADER_SET_CHANNEL:
                             if (mIsGPRS) {
                                 // 设置成功，保存数据，网络可用后订阅mqtt主题
                                 isSettingSuccess = true;
@@ -220,7 +232,7 @@ public class AddMokoSensorActivity extends BaseActivity {
                             if (mokoDevice == null) {
                                 mokoDevice = new MokoDevice();
                                 mokoDevice.name = mDeviceResult.device_name;
-                                mokoDevice.nickName = mDeviceResult.device_name;
+                                mokoDevice.nickName = mDeviceResult.device_specifications;
                                 mokoDevice.specifications = mDeviceResult.device_specifications;
                                 mokoDevice.function = mDeviceResult.device_function;
                                 mokoDevice.mac = mDeviceResult.device_mac;
@@ -316,9 +328,9 @@ public class AddMokoSensorActivity extends BaseActivity {
                 }
                 // 如果热点名称为ED001W-XXXX， 则设备只有WIFI模组； 如果热点名称为ED001G-XXXX， 则设备同时具有WIFI和GPRS模组；
                 String ssid = Utils.getWifiSSID(this);
-                if (ssid.contains("ED001W-")) {
+                if (ssid.contains("ED001-W")) {
                     showWifiInputDialog();
-                } else {
+                } else if (ssid.contains("ED001-GW")) {
                     // 选择模组
                     startActivityForResult(new Intent(this, SelectWorkModeActivity.class), AppConstants.REQUEST_CODE_SELECT_WORK_MODE);
                 }
@@ -333,8 +345,21 @@ public class AddMokoSensorActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 int mode = data.getIntExtra("work_mode", 1);
                 if (mode == 1) {
-                    // TODO: 2019/1/9 GPRS
+                    // GPRS
                     mIsGPRS = true;
+                    showLoadingProgressDialog(getString(R.string.wait));
+                    notBlinkingTips.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismissLoadingProgressDialog();
+                            if (isWifiCorrect()) {
+                                // 弹出加载弹框
+                                showConnMqttDialog();
+                                // 连接设备
+                                mService.startSocket();
+                            }
+                        }
+                    }, 2000);
                 } else {
                     mIsGPRS = false;
                     showWifiInputDialog();

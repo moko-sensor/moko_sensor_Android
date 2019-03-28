@@ -4,7 +4,8 @@ public class MokoConstants {
     // header
     public static final int HEADER_GET_DEVICE_INFO = 4001;
     public static final int HEADER_SET_MQTT_INFO = 4002;
-    public static final int HEADER_SET_WIFI_INFO = 4003;
+    public static final int HEADER_SET_CHANNEL = 4003;
+    public static final int HEADER_SET_WIFI_INFO = 4004;
     // response
     public static final int RESPONSE_SUCCESS = 0;
     public static final int RESPONSE_FAILED_LENGTH = 1;

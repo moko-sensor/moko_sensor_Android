@@ -41,13 +41,13 @@ public class SelectWorkModeActivity extends BaseActivity {
             case R.id.rb_work_mode_gprs:
                 i = new Intent();
                 i.putExtra("work_mode", 1);
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, i);
                 finish();
                 break;
             case R.id.rb_work_mode_wifi:
                 i = new Intent();
                 i.putExtra("work_mode", 2);
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, i);
                 finish();
                 break;
         }
