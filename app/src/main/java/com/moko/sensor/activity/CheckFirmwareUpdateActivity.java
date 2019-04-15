@@ -112,12 +112,13 @@ public class CheckFirmwareUpdateActivity extends BaseActivity {
                         return;
                     }
                     if (topic.equals(mokoDevice.getDeviceTopicUpgradeState())) {
+
+                        JsonObject json = new JsonObject();
 //                        json.addProperty("type", 0);
 //                        json.addProperty("realm", "23.83.237.116");
 //                        json.addProperty("port", 80);
-//                        json.addProperty("catalogue", "smartplug/20180817/");
-                        JsonObject json = new JsonObject();
-                        json.addProperty("type", rbHostTypeIp.isChecked() ? 0 : 1);
+//                        json.addProperty("catalogue", "/GPRS/GPRS_sensor.bin");
+//                        json.addProperty("type", rbHostTypeIp.isChecked() ? 0 : 1);
                         json.addProperty("realm", etHostContent.getText().toString());
                         json.addProperty("port", Integer.parseInt(etHostPort.getText().toString()));
                         json.addProperty("catalogue", etHostCatalogue.getText().toString());

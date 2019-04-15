@@ -66,6 +66,10 @@ public class MokoSensorDetailActivity extends BaseActivity {
     TextView tvLaserRanging;
     @Bind(R.id.rl_laser_ranging)
     RelativeLayout rlLaserRanging;
+    @Bind(R.id.tv_infra_red_temp)
+    TextView tvInfraRedTemp;
+    @Bind(R.id.rl_infra_red_temp)
+    RelativeLayout rlInfraRedTemp;
     private MokoDevice mokoDevice;
 
     @Override
@@ -86,27 +90,31 @@ public class MokoSensorDetailActivity extends BaseActivity {
             }
             if (deviceType.PM2_5 == 1) {
                 rlPm25.setVisibility(View.VISIBLE);
-                tvPm25.setText(mokoDevice.pm2_5 + "");
+                tvPm25.setText(mokoDevice.pm2_5 + "μg/m³");
             }
             if (deviceType.NH3 == 1) {
                 rlNh3.setVisibility(View.VISIBLE);
-                tvNh3.setText(mokoDevice.nh3 + "");
+                tvNh3.setText(mokoDevice.nh3 + "mg/m³");
             }
             if (deviceType.CO2 == 1) {
                 rlCo2.setVisibility(View.VISIBLE);
-                tvCo2.setText(mokoDevice.co2 + "");
+                tvCo2.setText(mokoDevice.co2 + "ppm");
             }
             if (deviceType.distance == 1) {
                 rlLaserRanging.setVisibility(View.VISIBLE);
-                tvLaserRanging.setText(mokoDevice.laser_ranging + "");
+                tvLaserRanging.setText(mokoDevice.laser_ranging + "m");
             }
             if (deviceType.illumination == 1) {
                 rlIllumination.setVisibility(View.VISIBLE);
-                tvIllumination.setText(mokoDevice.illumination + "");
+                tvIllumination.setText(mokoDevice.illumination + "LX");
             }
             if (deviceType.VOC == 1) {
                 rlVoc.setVisibility(View.VISIBLE);
-                tvVoc.setText(mokoDevice.voc + "");
+                tvVoc.setText(mokoDevice.voc + "mg/m³");
+            }
+            if (deviceType.infra_red_temp == 1) {
+                rlInfraRedTemp.setVisibility(View.VISIBLE);
+                tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.infra_red_temp) + "℃");
             }
             if (mokoDevice.isSensorDataEmpty()) {
                 showLoadingProgressDialog(getString(R.string.wait));
@@ -143,22 +151,25 @@ public class MokoSensorDetailActivity extends BaseActivity {
                         tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * sensorData.humidity) + "%");
                     }
                     if (rlPm25.getVisibility() == View.VISIBLE) {
-                        tvPm25.setText(sensorData.PM2_5 + "");
+                        tvPm25.setText(sensorData.PM2_5 + "μg/m³");
                     }
                     if (rlNh3.getVisibility() == View.VISIBLE) {
-                        tvNh3.setText(sensorData.NH3 + "");
+                        tvNh3.setText(sensorData.NH3 + "mg/m³");
                     }
                     if (rlCo2.getVisibility() == View.VISIBLE) {
-                        tvCo2.setText(sensorData.CO2 + "");
+                        tvCo2.setText(sensorData.CO2 + "ppm");
                     }
                     if (rlLaserRanging.getVisibility() == View.VISIBLE) {
-                        tvLaserRanging.setText(sensorData.distance + "");
+                        tvLaserRanging.setText(sensorData.distance + "m");
                     }
                     if (rlIllumination.getVisibility() == View.VISIBLE) {
-                        tvIllumination.setText(sensorData.illumination + "");
+                        tvIllumination.setText(sensorData.illumination + "LX");
                     }
                     if (rlVoc.getVisibility() == View.VISIBLE) {
-                        tvVoc.setText(sensorData.VOC + "");
+                        tvVoc.setText(sensorData.VOC + "mg/m³");
+                    }
+                    if (rlInfraRedTemp.getVisibility() == View.VISIBLE) {
+                        tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * sensorData.infra_red_temp) + "℃");
                     }
                 }
             }

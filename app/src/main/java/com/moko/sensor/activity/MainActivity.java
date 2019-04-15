@@ -184,6 +184,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                             if (deviceType.VOC == 1) {
                                 device.voc = sensorData.VOC;
                             }
+                            if (deviceType.infra_red_temp == 1) {
+                                device.infra_red_temp = sensorData.infra_red_temp;
+                            }
                             break;
                         }
                     }

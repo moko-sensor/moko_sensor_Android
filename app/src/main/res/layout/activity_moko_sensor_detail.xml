@@ -323,4 +323,39 @@
             style="@style/divider_line"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_infra_red_temp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/sensor_infra_red_temp"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="Infrared temperature"
+            android:textColor="@color/black_000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_infra_red_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/grey_808080"
+            android:textSize="15sp" />
+
+        <View
+            style="@style/divider_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 </LinearLayout>

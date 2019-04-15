@@ -11,4 +11,5 @@ public class DeviceType implements Serializable {
     public int distance;
     public int illumination;
     public int VOC;
+    public int infra_red_temp;
 }
