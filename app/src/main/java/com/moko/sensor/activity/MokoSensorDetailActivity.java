@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -82,39 +84,84 @@ public class MokoSensorDetailActivity extends BaseActivity {
             DeviceType deviceType = new Gson().fromJson(mokoDevice.type, DeviceType.class);
             if (deviceType.env_temp == 1) {
                 rlTemperature.setVisibility(View.VISIBLE);
-                tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.temperature) + "℃");
+                if (mokoDevice.temperature == 0xffff) {
+                    tvTemperature.setTextColor(Color.RED);
+                    tvTemperature.setText("--");
+                } else {
+                    tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.temperature) + "℃");
+                }
             }
             if (deviceType.humidity == 1) {
                 rlHumidity.setVisibility(View.VISIBLE);
-                tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.humidity) + "%");
+                if (mokoDevice.humidity == 0xffff) {
+                    tvHumidity.setTextColor(Color.RED);
+                    tvHumidity.setText("--");
+                } else {
+                    tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.humidity) + "%RH");
+                }
             }
             if (deviceType.PM2_5 == 1) {
                 rlPm25.setVisibility(View.VISIBLE);
-                tvPm25.setText(mokoDevice.pm2_5 + "μg/m³");
+                if (mokoDevice.pm2_5 == 0xffff) {
+                    tvPm25.setTextColor(Color.RED);
+                    tvPm25.setText("--");
+                } else {
+                    tvPm25.setText(mokoDevice.pm2_5 + "μg/m³");
+                }
             }
             if (deviceType.NH3 == 1) {
                 rlNh3.setVisibility(View.VISIBLE);
-                tvNh3.setText(mokoDevice.nh3 + "mg/m³");
+                if (mokoDevice.nh3 == 0xffff) {
+                    tvNh3.setTextColor(Color.RED);
+                    tvNh3.setText("--");
+                } else {
+                    tvNh3.setText(mokoDevice.nh3 + "ppm");
+                }
             }
             if (deviceType.CO2 == 1) {
                 rlCo2.setVisibility(View.VISIBLE);
-                tvCo2.setText(mokoDevice.co2 + "ppm");
+                if (mokoDevice.co2 == 0xffff) {
+                    tvCo2.setTextColor(Color.RED);
+                    tvCo2.setText("--");
+                } else {
+                    tvCo2.setText(mokoDevice.co2 + "ppm");
+                }
             }
             if (deviceType.distance == 1) {
                 rlLaserRanging.setVisibility(View.VISIBLE);
-                tvLaserRanging.setText(mokoDevice.laser_ranging + "m");
+                if (mokoDevice.laser_ranging == 0xffff || mokoDevice.laser_ranging == 0xfffe) {
+                    tvLaserRanging.setTextColor(Color.RED);
+                    tvLaserRanging.setText("--");
+                } else {
+                    tvLaserRanging.setText(mokoDevice.laser_ranging + "cm");
+                }
             }
             if (deviceType.illumination == 1) {
                 rlIllumination.setVisibility(View.VISIBLE);
-                tvIllumination.setText(mokoDevice.illumination + "LX");
+                if (mokoDevice.illumination == 0xffff) {
+                    tvIllumination.setTextColor(Color.RED);
+                    tvIllumination.setText("--");
+                } else {
+                    tvIllumination.setText(mokoDevice.illumination + "LX");
+                }
             }
             if (deviceType.VOC == 1) {
                 rlVoc.setVisibility(View.VISIBLE);
-                tvVoc.setText(mokoDevice.voc + "mg/m³");
+                if (mokoDevice.voc == 0xffff) {
+                    tvVoc.setTextColor(Color.RED);
+                    tvVoc.setText("--");
+                } else {
+                    tvVoc.setText(mokoDevice.voc + "ppm");
+                }
             }
             if (deviceType.infra_red_temp == 1) {
                 rlInfraRedTemp.setVisibility(View.VISIBLE);
-                tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.infra_red_temp) + "℃");
+                if (mokoDevice.infra_red_temp == 0xffff) {
+                    tvInfraRedTemp.setTextColor(Color.RED);
+                    tvInfraRedTemp.setText("--");
+                } else {
+                    tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * mokoDevice.infra_red_temp) + "℃");
+                }
             }
             if (mokoDevice.isSensorDataEmpty()) {
                 showLoadingProgressDialog(getString(R.string.wait));
@@ -145,31 +192,85 @@ public class MokoSensorDetailActivity extends BaseActivity {
                     String message = intent.getStringExtra(MokoConstants.EXTRA_MQTT_RECEIVE_MESSAGE);
                     SensorData sensorData = new Gson().fromJson(message, SensorData.class);
                     if (rlTemperature.getVisibility() == View.VISIBLE) {
-                        tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * sensorData.env_temp) + "℃");
+                        if (sensorData.env_temp == 0xffff) {
+                            tvTemperature.setTextColor(Color.RED);
+                            tvTemperature.setText("--");
+                        } else {
+                            tvTemperature.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvTemperature.setText(new DecimalFormat("0.0").format(0.1f * sensorData.env_temp) + "℃");
+                        }
                     }
                     if (rlHumidity.getVisibility() == View.VISIBLE) {
-                        tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * sensorData.humidity) + "%");
+                        if (sensorData.humidity == 0xffff) {
+                            tvHumidity.setTextColor(Color.RED);
+                            tvHumidity.setText("--");
+                        } else {
+                            tvHumidity.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvHumidity.setText(new DecimalFormat("0.0").format(0.1f * sensorData.humidity) + "%RH");
+                        }
                     }
                     if (rlPm25.getVisibility() == View.VISIBLE) {
-                        tvPm25.setText(sensorData.PM2_5 + "μg/m³");
+                        if (sensorData.PM2_5 == 0xffff) {
+                            tvPm25.setTextColor(Color.RED);
+                            tvPm25.setText("--");
+                        } else {
+                            tvPm25.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvPm25.setText(sensorData.PM2_5 + "μg/m³");
+                        }
                     }
                     if (rlNh3.getVisibility() == View.VISIBLE) {
-                        tvNh3.setText(sensorData.NH3 + "mg/m³");
+                        if (sensorData.NH3 == 0xffff) {
+                            tvNh3.setTextColor(Color.RED);
+                            tvNh3.setText("--");
+                        } else {
+                            tvNh3.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvNh3.setText(sensorData.NH3 + "ppm");
+                        }
                     }
                     if (rlCo2.getVisibility() == View.VISIBLE) {
-                        tvCo2.setText(sensorData.CO2 + "ppm");
+                        if (sensorData.CO2 == 0xffff) {
+                            tvCo2.setTextColor(Color.RED);
+                            tvCo2.setText("--");
+                        } else {
+                            tvCo2.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvCo2.setText(sensorData.CO2 + "ppm");
+                        }
                     }
                     if (rlLaserRanging.getVisibility() == View.VISIBLE) {
-                        tvLaserRanging.setText(sensorData.distance + "m");
+                        if (sensorData.distance == 0xffff || sensorData.distance == 0xfffe) {
+                            tvLaserRanging.setTextColor(Color.RED);
+                            tvLaserRanging.setText("--");
+                        } else {
+                            tvLaserRanging.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvLaserRanging.setText(sensorData.distance + "cm");
+                        }
                     }
                     if (rlIllumination.getVisibility() == View.VISIBLE) {
-                        tvIllumination.setText(sensorData.illumination + "LX");
+                        if (sensorData.illumination == 0xffff) {
+                            tvIllumination.setTextColor(Color.RED);
+                            tvIllumination.setText("--");
+                        } else {
+                            tvIllumination.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvIllumination.setText(sensorData.illumination + "LX");
+                        }
                     }
                     if (rlVoc.getVisibility() == View.VISIBLE) {
-                        tvVoc.setText(sensorData.VOC + "mg/m³");
+                        if (sensorData.VOC == 0xffff) {
+                            tvVoc.setTextColor(Color.RED);
+                            tvVoc.setText("--");
+                        } else {
+                            tvVoc.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvVoc.setText(sensorData.VOC + "ppm");
+                        }
                     }
                     if (rlInfraRedTemp.getVisibility() == View.VISIBLE) {
-                        tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * sensorData.infra_red_temp) + "℃");
+                        if (sensorData.infra_red_temp == 0xffff) {
+                            tvInfraRedTemp.setTextColor(Color.RED);
+                            tvInfraRedTemp.setText("--");
+                        } else {
+                            tvInfraRedTemp.setTextColor(ContextCompat.getColor(MokoSensorDetailActivity.this, R.color.grey_808080));
+                            tvInfraRedTemp.setText(new DecimalFormat("0.0").format(0.1f * sensorData.infra_red_temp) + "℃");
+                        }
                     }
                 }
             }
